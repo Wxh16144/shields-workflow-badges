@@ -1,0 +1,33 @@
+{
+  "name": "shields-badges-8671",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "bin": {
+    "shields-badges-8671": "index.js",
+    "fix-8671": "index.js"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wxh16144/shields-badges-8671"
+  },
+  "author": "Wuxh <wxh16144@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "unbuild": "^1.1.1"
+  }
+}
