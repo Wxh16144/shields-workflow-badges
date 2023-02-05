@@ -3,6 +3,7 @@ import chalk from "chalk";
 import fs from 'fs';
 import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
+import { isAbsoluteURL } from '@wuxh/utils'
 import { getMarkdownFiles, getWorkflowFiles } from './git';
 import type { Options, PluginParameters, ReplaceParameters } from './type';
 
@@ -21,6 +22,8 @@ function transformUrl(url: string, options: PluginParameters) {
     owner: coverOwner,
     repo: coverRepo,
   } = options;
+
+  if(!isAbsoluteURL(url)) return url;
 
   const myUrl = new URL(url);
 
