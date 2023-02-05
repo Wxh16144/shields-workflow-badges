@@ -1,3 +1,7 @@
 #!/usr/bin/env node
 
-import './dist/index.mjs'
+import main from './dist/index.mjs'
+
+main().catch(e => {
+  console.error(e);
+});

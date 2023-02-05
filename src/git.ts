@@ -1,20 +1,19 @@
 import glob from "fast-glob";
 import simpleGit, { type SimpleGit } from 'simple-git';
-
 import { Octokit } from '@octokit/core'
+
+export const git: SimpleGit = simpleGit({
+  baseDir: process.cwd(),
+});
 
 export const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
-const git: SimpleGit = simpleGit({
-  baseDir: process.cwd(),
-});
-
 export const getWorkflowFiles = async () => await glob([".github/workflows/*.yml"]);
 
-export const getMarkdownFiles = async () => await glob([
-  "**/*.md",
+export const getMarkdownFiles = async (pattern: string | string[] = '*.md') => await glob([
+  ...(Array.isArray(pattern) ? pattern : [pattern]),
   '!node_modules/**',
 ]);
 
@@ -34,7 +33,6 @@ export const getOwnerAndRepo = async () => {
   const regex = /github\.com[:\/](?<owner>.+)\/(?<repo>.+)\.git/;
   return url.match(regex)?.groups ?? { owner: '', repo: '' }
 }
-
 
 export const getRemoteRepo = async () => {
   const { owner, repo } = await getOwnerAndRepo();

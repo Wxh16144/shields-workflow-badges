@@ -1,25 +1,16 @@
 import YAML from 'yaml'
+import chalk from "chalk";
+import fs from 'fs';
 import { remark } from 'remark'
 import { visit } from 'unist-util-visit'
-
 import { getMarkdownFiles, getWorkflowFiles } from './git';
-import fs from 'fs';
+import type { Options, PluginParameters, ReplaceParameters } from './type';
 
 const FILE_NAME_MARK = '__FILE_NAME__'
 
 function getWorkflowFileName(fullPath: string) {
   return fullPath.split('/').pop();
 }
-
-interface Options {
-  content: string;
-  workflows: any[];
-  branchName?: string;
-  owner?: string;
-  repo?: string;
-}
-
-type PluginParameters = Omit<Options, 'content'>
 
 // old: https://img.shields.io/github/workflow/status/<owner>/<repo>/<workflow-name>?style=flat-square
 // new: https://img.shields.io/github/actions/workflow/status/<owner>/<repo>/test.yml?branch=main&style=flat-square
@@ -43,7 +34,13 @@ function transformUrl(url: string, options: PluginParameters) {
       return workflow?.name === decodeURIComponent(oldWorkflowName);
     })
 
-    const workflowFileName = matchedWorkflow[FILE_NAME_MARK] ?? oldWorkflowName;
+    let workflowFileName = matchedWorkflow[FILE_NAME_MARK];
+
+    if (!workflowFileName) {
+      console.log(`${chalk.bold.yellow('⚠️  [WARN]')} Cannot find workflow file name for workflow: ${chalk.bold.red(oldWorkflowName)}`);
+
+      workflowFileName = `${oldWorkflowName}.yml`;
+    }
 
     myUrl.pathname = `/github/actions/workflow/status/${coverOwner ?? owner}/${coverRepo ?? repo}/${oldWorkflowName}.yml`;
 
@@ -83,7 +80,12 @@ function processUnit(options: Options) {
     .process(content);
 }
 
-async function replace(branchName?: string) {
+async function replace(options: ReplaceParameters) {
+  const {
+    branch,
+    glob,
+  } = options
+  
   const workflowFiles = await getWorkflowFiles();
 
   const workflows = workflowFiles.map(
@@ -93,13 +95,15 @@ async function replace(branchName?: string) {
     })
   );
 
-  const markdowns = await getMarkdownFiles();
+  const markdowns = await getMarkdownFiles(glob);
 
   for (const markdown of markdowns) {
     const content = fs.readFileSync(markdown, 'utf8');
-    const result = await processUnit({ content, branchName, workflows });
+    const result = await processUnit({ content, branchName: branch, workflows });
 
     fs.writeFileSync(markdown, result.toString());
+
+    console.log(chalk.bold(`${chalk.green('🚀 [SUCCESS]')} ${chalk.underline(markdown)}`));
   }
 }
 
