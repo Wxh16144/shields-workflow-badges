@@ -22,6 +22,12 @@ function transformUrl(url: string, options: PluginParameters) {
     repo: coverRepo,
   } = options;
 
+  const invalidUrl = ['http', 'https'].every((protocol) => !url.startsWith(protocol));
+
+  if (invalidUrl) {
+    return url;
+  }
+
   const myUrl = new URL(url);
 
   if (
