@@ -3,7 +3,6 @@ lockfileVersion: 5.4
 specifiers:
   '@octokit/core': ^4.2.0
   '@types/node': ^18.11.19
-  '@wuxh/utils': ^0.0.4
   chalk: ^5.2.0
   fast-glob: ^3.2.12
   mri: ^1.2.0
@@ -15,7 +14,6 @@ specifiers:
 
 dependencies:
   '@octokit/core': 4.2.0
-  '@wuxh/utils': 0.0.4
   chalk: 5.2.0
   fast-glob: 3.2.12
   mri: 1.2.0
@@ -699,10 +697,6 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
-    dev: false
-
-  /@wuxh/utils/0.0.4:
-    resolution: {integrity: sha512-G68CPHP6WcsCIo6gDrqIoRi6NqqlRLF2J/rJJ8BIsUdVtJCWN0VWhHU/ahHexd4vRQ5Sd3zfWFXwaHgKiGCKRQ==}
     dev: false
 
   /acorn/8.8.2:
