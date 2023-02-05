@@ -38,7 +38,7 @@ function transformUrl(url: string, options: PluginParameters) {
 
     const matchedWorkflow = workflows.find(workflow => {
       return workflow?.name === decodeURIComponent(oldWorkflowName);
-    })
+    }) ?? {};
 
     let workflowFileName = matchedWorkflow[FILE_NAME_MARK];
 
