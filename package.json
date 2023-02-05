@@ -1,10 +1,10 @@
 {
-  "name": "shields-badges-8671",
+  "name": "shields-workflow-badges",
   "version": "1.0.1-beta.0",
   "description": "",
   "type": "module",
   "bin": {
-    "shields-badges-8671": "index.js",
+    "shields-workflow-badges": "index.js",
     "fix-8671": "index.js"
   },
   "main": "index.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wxh16144/shields-badges-8671"
+    "url": "git+https://github.com/Wxh16144/shields-workflow-badges"
   },
   "author": "Wuxh <wxh16144@qq.com>",
   "license": "MIT",
