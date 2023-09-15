@@ -1,4 +1,4 @@
-# shields-workflow-badges
+# shields-workflow-badges (Draft)
 
 该仓库本意是通过一个 CLI 解决 [badges/shields/issues/8671](https://github.com/badges/shields/issues/8671) 描述的问题。
 
